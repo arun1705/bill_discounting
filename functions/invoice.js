@@ -47,6 +47,8 @@ exports.financeInvoice = (value) => {
             value.status="approved"
         }else if(value.status="approved"){
             value.status="financeReleased"
+        }else if(value.status="rejected"){
+            value.status="rejected"
         }
         bcSdk.financeInvoice(value)
             .then(function (result) {

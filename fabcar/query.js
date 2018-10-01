@@ -67,7 +67,7 @@ function readInvoiceDetails(to) {
 		const request = {
 			//targets : --- letting this default to the peers assigned to the channel
 			chaincodeId: 'fabcar',
-			fcn: 'readInvoiceDetails',
+			fcn: 'getHistoryForInvoice',
 			args: [to]
 		};
 
