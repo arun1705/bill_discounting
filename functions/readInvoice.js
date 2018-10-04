@@ -10,13 +10,30 @@ var bcSdk = require('../fabcar/query');
 /** Add Data into blockchain.*/
 exports.readInvoiceDetails = (to) => {
     return new Promise((resolve, reject) => {
-
+        var resultArray = [];
+        var invoiceids = [];
+        var finalArray = [];
+        var sorted_arr, uniqueItems;
         bcSdk.readInvoiceDetails(to)
             .then(function (result) {
-                console.log("result from read invoice--->>", result)
+                for (var i = 0; i < result.length; i++) {
+                    resultArray.push(result[i].Value)
+                }
+                for (var i = 0; i < resultArray.length; i++) {
+                    invoiceids.push(resultArray[i].invoiceID)
+                }
+
+                sorted_arr = invoiceids.slice().sort();
+                uniqueItems = Array.from(new Set(sorted_arr))
+
+                for (var i = 0; i < uniqueItems.length; i++) {
+                    var index = resultArray.slice().reverse().findIndex(x => x['invoiceID'] === uniqueItems[i]);
+                    var count = resultArray.length - 1
+                    var finalIndex = index >= 0 ? count - index : index;
+                    finalArray.push(resultArray[finalIndex])
+                }
                 resolve({
-                    "status": 200,
-                    "message": result
+                    "message": finalArray
                 });
 
             })
@@ -38,10 +55,10 @@ exports.readInvoiceDetails = (to) => {
  * @module readAllInvoiceDetails
  */
 /** Add Data into blockchain.*/
-exports.readAllInvoiceDetails = (startInvoiceId,endInvoiceId) => {
+exports.readAllInvoiceDetails = (startInvoiceId, endInvoiceId) => {
     return new Promise((resolve, reject) => {
 
-        bcSdk.readAllInvoiceDetails(startInvoiceId,endInvoiceId)
+        bcSdk.readAllInvoiceDetails(startInvoiceId, endInvoiceId)
             .then(function (result) {
                 console.log("result from read invoice--->>", result)
                 resolve({

@@ -80,8 +80,8 @@ module.exports = router => {
 
             readInvoiceDetails.readInvoiceDetails(to)
                 .then(function (result) {
-                    return res.json({
-                        "message": result
+                    return res.status(200).json({
+                        "message": result.message
                     });
                 })
                 .catch(err => res.status(err.status).json({
@@ -114,10 +114,10 @@ module.exports = router => {
         const discountPrice = req.body.discountPrice;
         console.log(discountPrice);
         const status = req.body.status;
-        console.log(status);  
+        console.log(status);
 
 
-        if (!invoiceID || !goods || !quantity || !duedate || !invoicedate || !unitprice ||!discount || !discountPrice || !totalprice || !to  || !status || !invoiceID.trim() || !goods.trim() || !quantity.trim() || !duedate.trim() || !invoicedate.trim() || !unitprice.trim() ||!discount.trim() || !discountPrice.trim() || !totalprice.trim() || !to.trim() || !status.trim()) {
+        if (!invoiceID || !goods || !quantity || !duedate || !invoicedate || !unitprice || !discount || !discountPrice || !totalprice || !to || !status || !invoiceID.trim() || !goods.trim() || !quantity.trim() || !duedate.trim() || !invoicedate.trim() || !unitprice.trim() || !discount.trim() || !discountPrice.trim() || !totalprice.trim() || !to.trim() || !status.trim()) {
 
             res.status(400).json({
                 message: 'Invalid Request !'
@@ -128,9 +128,9 @@ module.exports = router => {
                 invoiceID: invoiceID,
                 goods: goods,
                 quantity: quantity,
-                duedate : duedate,
-                invoicedate :invoicedate,
-                unitprice :unitprice,
+                duedate: duedate,
+                invoicedate: invoicedate,
+                unitprice: unitprice,
                 discount: discount,
                 totalprice: totalprice,
                 discountPrice: discountPrice,
